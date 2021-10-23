@@ -1,5 +1,5 @@
 
-class Song:
+class Cancion:
     def __init__(self,
                  ranking: int,
                  name: str,
