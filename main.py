@@ -8,9 +8,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-import Utils
+import Suministro
 from Clases.Cancion import Cancion
-from Servicios.ServicioCancion import ServicioCancio
+from Servicios.ServicioCancion import *
 
 baseURL = 'https://spotifycharts.com/regional/'
 countryList = ['cl', 'co', 'ar', 'pe', 'pr', 'uy', 've', 'ec', 'pa', 'mx', 'hn', 'gt', 'cr', 'do', 'es']
@@ -56,21 +56,24 @@ class SpotifyScrapper:
 
 if __name__ == '__main__':
     #Definimos un rango de fechas, que parta del año 2019 del 1 del 1 al 2021 al 8 del 1
-    dateRange = Utils.generateMonthlyDateRange(date(2019, 1, 1), date(2021, 8, 1))
+    dateRange = Suministro.generateMonthlyDateRange(date(2019, 1, 1), date(2021, 8, 1))
     #Se crea un driver, que es un objeto, que es una libreria de selemiun
     driver = webdriver.Chrome(
         #El driver debe de ser compatible con la version de chrome que se tenga
         #Descargar: https://chromedriver.chromium.org/
-        executable_path=r'Driver\\95\\chromedriver.exe'
+        executable_path='Driver\\95\\chromedriver.exe'
     )
     #Esto es instanciar la base de datos
-    servicioCancion = ServicioCancio()
+    servicioCancion = ServicioCancionMongoDB()
+    #Esto es instanciar la clase que escanea la web
+    spotifyScrapper = SpotifyScrapper()
+    #leemos la lista de paises
     for country in countryList:
         for dateObj in dateRange:
-            songs = list(SpotifyScrapper().requestAndObtainTopSongs(
+            canciones = list(SpotifyScrapper().requestAndObtainTopSongs(
                 country,
                 dateObj.strftime("%Y-%m-%d"),
                 driver
             ))
-            for song in songs:
-                songService.save(song)
+            for cancion in canciones:
+                servicioCancion.guardar(cancion)
