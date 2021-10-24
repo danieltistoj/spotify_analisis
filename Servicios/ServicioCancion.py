@@ -12,7 +12,7 @@ if typing.TYPE_CHECKING:
 
 class ServicioCancionMongoDB:
     def __init__(self):
-        self.mongo_host = "localhost"
+        self.mongo_host = "172.23.151.3"
         self.mongo_puerto = "27017"
         self.mongo_fuera = 1000
         self.mongo_uri = "mongodb://"+self.mongo_host+":"+self.mongo_puerto+"/"
