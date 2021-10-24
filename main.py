@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import *
 from typing import Iterator
 
 from bs4 import BeautifulSoup
@@ -13,8 +13,8 @@ from Clases.Cancion import Cancion
 from Servicios.ServicioCancion import *
 
 baseURL = 'https://spotifycharts.com/regional/'
-countryList = ['cl', 'co', 'ar', 'pe', 'pr', 'uy', 've', 'ec', 'pa', 'mx', 'hn', 'gt', 'cr', 'do', 'es']
-countryList = ['ec', 'pa', 'mx','co', 'hn','ar', 'gt', 'cr', 'do', 'es']
+#listaPaises = ['cl', 'co', 'ar', 'pe', 'pr', 'uy', 've', 'ec', 'pa', 'mx', 'hn', 'gt', 'cr', 'do', 'es']
+listaPaises = ['ec', 'pa', 'mx','co', 'hn','ar', 'gt', 'cr', 'do', 'es','cl']
 
 class SpotifyScrapper:
     #Solicitar y obtener las mejores canciones
@@ -56,7 +56,10 @@ class SpotifyScrapper:
 
 if __name__ == '__main__':
     #Definimos un rango de fechas, que parta del año 2019 del 1 del 1 al 2021 al 8 del 1
-    dateRange = Suministro.generateMonthlyDateRange(date(2019, 1, 1), date(2021, 8, 1))
+    #años, mes, dia
+    #Obtenemos la fehca actual para indicar el rango
+    fecha_actual = datetime.now()
+    dateRange = Suministro.generateMonthlyDateRange(date(2017, 1, 1), date(fecha_actual.year,fecha_actual.month,1))
     #Se crea un driver, que es un objeto, que es una libreria de selemiun
     driver = webdriver.Chrome(
         #El driver debe de ser compatible con la version de chrome que se tenga
@@ -68,7 +71,7 @@ if __name__ == '__main__':
     #Esto es instanciar la clase que escanea la web
     spotifyScrapper = SpotifyScrapper()
     #leemos la lista de paises
-    for country in countryList:
+    for country in listaPaises:
         for dateObj in dateRange:
             canciones = list(SpotifyScrapper().requestAndObtainTopSongs(
                 country,

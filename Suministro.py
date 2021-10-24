@@ -8,6 +8,7 @@ def generateMonthlyDateRange(startDate: date, endDate: date) -> List[date]:
     dateList = [startDate]
 
     while date_modified < endDate:
+        #months
         date_modified += relativedelta.relativedelta(months=1)
         dateList.append(date_modified)
 
