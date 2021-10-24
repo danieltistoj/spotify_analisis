@@ -12,5 +12,5 @@ https://chromedriver.chromium.org/
 en el archivo requirements.txt están todos los paquetes necesarios para el proyecto
 
 ```sh
-pip install -r .\requirements.txt
+pip install -r requirements.txt
 ```
