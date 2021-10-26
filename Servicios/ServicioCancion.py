@@ -12,6 +12,7 @@ if typing.TYPE_CHECKING:
 
 class ServicioCancionMongoDB:
     def __init__(self):
+        #si la ip no conecta, conectarse a localhost
         self.mongo_host = "172.23.151.3"
         self.mongo_puerto = "27017"
         self.mongo_fuera = 1000
@@ -33,7 +34,8 @@ class ServicioCancionMongoDB:
             "nombre":cancion.name,
             "artista":cancion.author,
             "ranking":cancion.ranking,
-            "pais":cancion.country
+            "pais":cancion.country,
+            "fecha":cancion.date
         }
         self.coleccion.insert(documento)
 
