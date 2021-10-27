@@ -34,6 +34,8 @@ class analis_datos:
             pais = "España"
         elif pais == "cl":
             pais = "Chile"
+        else:
+            pais = "Todos los paises"
         return pais
 
     def ranking10_2017_2021(self,valor):
@@ -92,11 +94,32 @@ class analis_datos:
         plt.title("Reproducciones Top 10 {}: 2017 al 2021".format(pais))
         plt.show()
 
+    def Reproducciones_por_artista20172021(self,artista,pais):
+        if pais!="":
+            #Filtramos por los registros que tengan solo al artista y al pais que queresmo
+             df_filtrado = self.df_filtrado[(self.df_filtrado["artista"]==artista) & (self.df_filtrado["pais"]==pais)]
+             #Dejamos en el dataframe la fecha y las  reproduccioenes
+             df_filtrado = df_filtrado[["fecha","reproducciones:"]]
+             #Ploteamos los valores
+             plt.plot(df_filtrado["fecha"], df_filtrado["reproducciones:"])
+             print(df_filtrado)
+        else:
+            df_filtrado = self.df_filtrado[self.df_filtrado["artista"] == artista]
+            df_filtrado = df_filtrado[["fecha", "reproducciones:"]]
+            df_filtrado=df_filtrado.groupby("fecha").mean()
+            df_filtrado["reproducciones:"].plot()
+
+        pais = self.claveApais(pais)
+        plt.title("Reproducciones de {} en {}".format(artista,pais))
+        plt.xticks(rotation=45)
+        plt.show()
+
+
 
 
 
 analisis = analis_datos()
 #analisis.ranking10_2017_2021("cancion")
 #analisis.ranking10_2017_2021PorPais("ar","artista")
-#analisis.rendimientoDeRanking2017_2021("Ricky Martin")
-analisis.Reproducciones2017_2021("artista","")
+#analisis.Reproducciones2017_2021("artista","")
+analisis.Reproducciones_por_artista20172021("Ricky Martin","ar")
