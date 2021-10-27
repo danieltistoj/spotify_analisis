@@ -50,8 +50,14 @@ class SpotifyScrapper:
             .replace("\"", "") \
             .strip()
         position = songRaw.find('td', {'class': 'chart-table-position'}).getText()
+        reproducciones = songRaw.find('td',{'class':'chart-table-streams'}).getText()
+        #Le eliminamos el caracter de coma a las reproducciones, para convertirlo a un entero
+        caracter = ","
         #Se le ingresa esto a la clase Cancion
-        return Cancion(int(position), name, artist, date, country)
+        #print("reproducciones: ",int(reproducciones))
+        for x in range(len(caracter)):
+            reproducciones = reproducciones.replace(caracter[x], "")
+        return Cancion(int(position), name, artist, date, country,int(reproducciones))
 
 
 if __name__ == '__main__':

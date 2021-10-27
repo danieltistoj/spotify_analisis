@@ -8,9 +8,9 @@ class analis_datos:
     #la funcion recibe el valor al que se quiere encotrar el ranking
     def __init__(self):
         #Hacemos un dataframe
-        self.df =  pd.read_csv("../Respaldo_db/csv/cancion123459data.csv", index_col=False)
+        self.df =  pd.read_csv("../Respaldo_db/csv/cancion123458completo.csv", index_col=False)
         #Filtamos los datos, para eliminar los posibles valores nulos
-        self.df_filtrado = self.df.fillna({"ranking": 0, "nombre": "", "artista": "", "pais": "", "data": ""})
+        self.df_filtrado = self.df.fillna({"ranking": 0, "cancion": "", "artista": "", "pais": "", "data": ""})
     def ranking10_2017_2021(self,valor):
         #Agrupamos por artista y hacemos un promedio del ranking por artista
         df_agrupado = self.df_filtrado.groupby(valor).mean()
@@ -70,23 +70,16 @@ class analis_datos:
         plt.show()
         #print(df_filtrado)
         #valor puede ser una cancion ó un artista
-    def rendimientoDeRanking2017_2021(self,artista):
-        # obtenemos solo los registros que tengan el pais que recibimos
-        df_filtrado = self.df_filtrado[self.df_filtrado["artista"] == artista]
-        df_filtrado = df_filtrado[["data","ranking"]]
-        #df_filtrado.drop(["_id"],axis=1)
-        #cambiamos el indice, para eliminarlo y quedarnos solo con dos columnas
-        #df_filtrado = df_filtrado.reset_index()
-        df_filtrado = df_filtrado[["data","ranking"]]
-        df_filtrado = df_filtrado.loc[df_filtrado["data"].between('2017-01-1','2017-12-30')]
-        #print(df_filtrado)
-        df_filtrado.plot("data","ranking")
-        #print(df_filtrado)
-        #df_filtrado["ranking"].plot()
-        plt.show()
+    #El valor se refiere al
+    def Reproducciones2017_2021(self,valor):
+        df_agrupado = self.df_filtrado.groupby(valor).mean()
+        # Dejamos en el dataframe los artista que esta solo en el top 10
+        df_agrupado2 = df_agrupado[df_agrupado["ranking"] <= 10]
+
+
 
 
 analisis = analis_datos()
-#analisis.ranking10_2017_2021("nombre")
+analisis.ranking10_2017_2021("cancion")
 #analisis.ranking10_2017_2021PorPais("ar","artista")
 #analisis.rendimientoDeRanking2017_2021("Ricky Martin")

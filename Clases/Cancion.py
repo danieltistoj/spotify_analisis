@@ -5,9 +5,11 @@ class Cancion:
                  name: str,
                  author: str,
                  date: str,
-                 country: str):
+                 country: str,
+                 reproducciones: int):
         self.ranking = ranking
         self.name = name
         self.author = author
         self.date = date
         self.country = country
+        self.reproducciones = reproducciones

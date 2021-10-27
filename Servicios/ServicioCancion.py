@@ -13,7 +13,7 @@ if typing.TYPE_CHECKING:
 class ServicioCancionMongoDB:
     def __init__(self):
         #si la ip no conecta, conectarse a localhost
-        self.mongo_host = "172.23.151.3"
+        self.mongo_host = "localhost"
         self.mongo_puerto = "27017"
         self.mongo_fuera = 1000
         self.mongo_uri = "mongodb://"+self.mongo_host+":"+self.mongo_puerto+"/"
@@ -31,9 +31,10 @@ class ServicioCancionMongoDB:
 
     def guardar(self, cancion: 'Cancion'):
         documento = {
-            "nombre":cancion.name,
+            "cancion":cancion.name,
             "artista":cancion.author,
             "ranking":cancion.ranking,
+            "reproducciones:":cancion.reproducciones,
             "pais":cancion.country,
             "fecha":cancion.date
         }
