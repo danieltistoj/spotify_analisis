@@ -177,11 +177,11 @@ class analis_datos:
 
 
 
-analisis = analis_datos()
+#analisis = analis_datos()
 #analisis.ranking10_2017_2021("cancion")
 #analisis.ranking10_2017_2021PorPais("ar","artista")
 #analisis.Reproducciones2017_2021("artista","")
 #analisis.Reproducciones_por_artista20172021("Ricky Martin","co")a
-analisis.artistas()
+#analisis.artistas()
 #analisis.paises()
 #analisis.comprobarEstadisticaReproduccioens("")
