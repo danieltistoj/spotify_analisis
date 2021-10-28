@@ -14,18 +14,20 @@ class analis_datos:
         self.df_filtrado = self.df.fillna({"ranking": 0, "cancion": "", "artista": "", "pais": "", "data": ""})
     def artistas(self):
         dataArtistas = self.df_filtrado.groupby("artista").mean()
-        print(dataArtistas)
+        #print(dataArtistas)
         dataArtistas=dataArtistas.reset_index()
         dataArtistas = dataArtistas[["artista"]]
         dataArtistas = pd.DataFrame(dataArtistas)
-        print(dataArtistas)
+        #print(dataArtistas)
         arr = dataArtistas.to_numpy()
         nuevo =[]
         for x in range(arr.size):
             if arr[x][0]!="":
                 nuevo.append(arr[x][0])
-        print(arr.size)
+        #print(arr.size)
         return nuevo
+    #Ver que el nombre del artista tentanga estadistica
+
     def paises(self):
         dataPaises = self.df_filtrado.groupby("pais").mean()
         #print(dataPaises)
@@ -37,6 +39,7 @@ class analis_datos:
         for x in range(arr.size):
             if arr[x][0]!="":
                 nuevo.append(arr[x][0])
+        nuevo.append("Todos")
         return  nuevo
 
 
@@ -162,18 +165,23 @@ class analis_datos:
         plt.show()
 
     def Reproducciones_por_artista20172021(self,artista,pais):
-        if pais!="":
+        if pais!="Todos":
             #Filtramos por los registros que tengan solo al artista y al pais que queresmo
              df_filtrado = self.df_filtrado[(self.df_filtrado["artista"]==artista) & (self.df_filtrado["pais"]==pais)]
+             print(df_filtrado)
              #Dejamos en el dataframe la fecha y las  reproduccioenes
              df_filtrado = df_filtrado[["fecha","reproducciones:"]]
+
              #Ploteamos los valores
              plt.plot(df_filtrado["fecha"], df_filtrado["reproducciones:"])
              print(df_filtrado)
         else:
             df_filtrado = self.df_filtrado[self.df_filtrado["artista"] == artista]
+            print(df_filtrado)
             df_filtrado = df_filtrado[["fecha", "reproducciones:"]]
+            print(df_filtrado)
             df_filtrado=df_filtrado.groupby("fecha").mean()
+            print(df_filtrado)
             df_filtrado["reproducciones:"].plot()
 
         pais = self.claveApais(pais)
@@ -185,10 +193,11 @@ class analis_datos:
 
 
 
-#analisis = analis_datos()
+analisis = analis_datos()
 #analisis.ranking10_2017_2021("cancion")
 #analisis.ranking10_2017_2021PorPais("ar","artista")
 #analisis.Reproducciones2017_2021("artista","")
 #analisis.Reproducciones_por_artista20172021("Ricky Martin","co")a
-#analisis.artistas()
+analisis.artistas()
 #analisis.paises()
+#analisis.comprobarEstadisticaReproduccioens("")
