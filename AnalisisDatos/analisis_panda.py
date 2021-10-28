@@ -1,6 +1,7 @@
 #Instalar: pip install pandas
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 from numpy.distutils.system_info import dfftw_info
 
 
@@ -11,6 +12,25 @@ class analis_datos:
         self.df =  pd.read_csv("../Respaldo_db/csv/cancion123458completo.csv", index_col=False)
         #Filtamos los datos, para eliminar los posibles valores nulos
         self.df_filtrado = self.df.fillna({"ranking": 0, "cancion": "", "artista": "", "pais": "", "data": ""})
+    def artistas(self):
+        dataArtistas = self.df_filtrado.groupby("artista").mean()
+        print(dataArtistas)
+        dataArtistas=dataArtistas.reset_index()
+        dataArtistas = dataArtistas[["artista"]]
+        dataArtistas = pd.DataFrame(dataArtistas)
+        print(dataArtistas)
+        arr = dataArtistas.to_numpy()
+        nuevo =[]
+        for x in range(arr.size):
+            if arr[x][0]!="":
+                nuevo.append(arr[x][0])
+        print(arr.size)
+        return nuevo
+    def paises(self):
+        pass
+
+
+        #return dataArtistas
     def claveApais(self,pais):
         if pais == "mx":
             pais = "Mexico"
@@ -37,6 +57,43 @@ class analis_datos:
         else:
             pais = "Todos los paises"
         return pais
+    def paisAclave(self,pais):
+        if pais == "Mexico":
+            pais = "mx"
+            #ec
+        elif pais == "Ecuador":
+            pais = "ec"
+            #pa
+        elif pais == "Panamo":
+            pais = "pa"
+            #co
+        elif pais == "Colombia":
+            pais = "co"
+            #hn
+        elif pais == "Honduras":
+            pais = "hn"
+            #ar
+        elif pais == "Argentina":
+            pais = "ar"
+            #gt
+        elif pais == "Guatemala":
+            pais = "gt"
+            #cr
+        elif pais == "Costa Rica":
+            pais = "cr"
+            #do
+        elif pais == "Republica Dominicana":
+            pais = "do"
+            #es
+        elif pais == "España":
+            pais = "es"
+        #cl
+        elif pais == "Chile":
+            pais = "cl"
+        else:
+            pais = "Todos los paises"
+        return pais
+
 
     def ranking10_2017_2021(self,valor):
         #Agrupamos por artista y hacemos un promedio del ranking por artista
@@ -118,8 +175,9 @@ class analis_datos:
 
 
 
-analisis = analis_datos()
+#analisis = analis_datos()
 #analisis.ranking10_2017_2021("cancion")
 #analisis.ranking10_2017_2021PorPais("ar","artista")
 #analisis.Reproducciones2017_2021("artista","")
-analisis.Reproducciones_por_artista20172021("Ricky Martin","ar")
+#analisis.Reproducciones_por_artista20172021("Ricky Martin","co")a
+#analisis.artistas()
