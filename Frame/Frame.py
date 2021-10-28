@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 from AnalisisDatos.analisis_panda import *
+import TablaDataFrame
 analisis = analis_datos()
 def ReproduccionPromedio(artista,pais):
     analisis.Reproducciones_por_artista20172021(artista,pais)
@@ -60,5 +61,6 @@ lista_desplegable6.current(11)
 
 botonAnalisis_rep3 = Button(ventana,text="Ranking promedio", command= lambda: RankingPromedio(lista_desplegable6.get(),lista_desplegable5.get())).place(x=30,y=240)
 
+BotonDataFrame = Button(ventana,text="Data Frame", command=  lambda: TablaDataFrame.DataFrameTable(ventana,analisis.df_filtrado)).place(x=400,y=50)
 
 ventana.mainloop()
