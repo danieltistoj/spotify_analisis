@@ -149,7 +149,7 @@ class analis_datos:
     #El valor se refiere ya sea reporducciones por canciones o por artistas
     #Grafica de barras entre todos los paises
     def Reproducciones2017_2021(self,valor,pais):
-        if pais != "":
+        if pais != "Todos":
             df_filtrado = self.df_filtrado[self.df_filtrado["pais"] == pais]
             df_agrupado = df_filtrado.groupby(valor).mean()
             pais = self.claveApais(pais)
