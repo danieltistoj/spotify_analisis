@@ -27,7 +27,6 @@ class analis_datos:
         #print(arr.size)
         return nuevo
     #Ver que el nombre del artista tentanga estadistica
-
     def paises(self):
         dataPaises = self.df_filtrado.groupby("pais").mean()
         #print(dataPaises)
@@ -107,27 +106,13 @@ class analis_datos:
             pais = "Todos los paises"
         return pais
 
-
-    def ranking10_2017_2021(self,valor):
-        #Agrupamos por artista y hacemos un promedio del ranking por artista
-        df_agrupado = self.df_filtrado.groupby(valor).mean()
-        #Dejamos en el dataframe los artista que esta solo en el top 10
-        df_agrupado2 = df_agrupado[df_agrupado["ranking"] <= 10]
-        #print(df_agrupado2)
-       #Hacemos una grafica de barras horizontal. si quiere una grafica de barras vertical poner solo bar
-        df_agrupado2["ranking"].plot(kind="barh")
-        #Agragamos el titulo
-        plt.title("Ranking 10: del 2017 al 2021")
-        #Agregamos titulo de x
-        plt.xlabel("Ranking")
-        #Agregamos titulo de y
-        plt.ylabel(valor)
-        #Pintamos
-        plt.show()
     #el pais tiene que ser la clave como esta en la lista de main
     def ranking10_2017_2021PorPais(self,pais,valor):
         #obtenemos solo los registros que tengan el pais que recibimos
-        df_filtrado = self.df_filtrado[self.df_filtrado["pais"]==pais]
+        if pais !="Todos":
+            df_filtrado = self.df_filtrado[self.df_filtrado["pais"] == pais]
+        else:
+            df_filtrado = self.df_filtrado
         #Agrupamos
         df_agrupado = df_filtrado.groupby(valor).mean()
         # Dejamos en el dataframe los artista que esta solo en el top 10
@@ -163,7 +148,6 @@ class analis_datos:
         destinado =""
         plt.title("Reproducciones Top 10 {}: 2017 al 2021".format(pais))
         plt.show()
-
     def Reproducciones_por_artista20172021(self,artista,pais):
         if pais!="Todos":
             #Filtramos por los registros que tengan solo al artista y al pais que queresmo

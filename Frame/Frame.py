@@ -8,6 +8,9 @@ def ReproduccionPromedio(artista,pais):
 def ReproduccionPromedio2(valor,pais):
     analisis.Reproducciones2017_2021(valor,pais)
 
+def RankingPromedio(pais,valor):
+    analisis.ranking10_2017_2021PorPais(pais,valor)
+
 
 
 ventana = Tk()
@@ -44,6 +47,18 @@ lista_desplegable4["values"] = analisis.paises()
 lista_desplegable4.current(11)
 
 botonAnalisis_rep2 = Button(ventana,text="Reproducciones promedio", command= lambda: ReproduccionPromedio2(lista_desplegable3.get(),lista_desplegable4.get())).place(x=30,y=170)
+
+lista_desplegable5 = ttk.Combobox(ventana,width=20)
+lista_desplegable5.place(x=30,y=210)
+lista_desplegable5["values"] = opciones
+lista_desplegable5.current(0)
+
+lista_desplegable6 = ttk.Combobox(ventana,width=20)
+lista_desplegable6.place(x=200,y=210)
+lista_desplegable6["values"] = analisis.paises()
+lista_desplegable6.current(11)
+
+botonAnalisis_rep3 = Button(ventana,text="Ranking promedio", command= lambda: RankingPromedio(lista_desplegable6.get(),lista_desplegable5.get())).place(x=30,y=240)
 
 
 ventana.mainloop()
