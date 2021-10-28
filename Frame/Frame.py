@@ -15,7 +15,7 @@ lista_desplegable["values"] = analisis.artistas()
 
 lista_desplegable2 = ttk.Combobox(ventana,width=20)
 lista_desplegable2.place(x=200,y=50)
-#lista_desplegable["values"] = analisis.artistas()
+lista_desplegable2["values"] = analisis.paises()
 
 
 ventana.mainloop()

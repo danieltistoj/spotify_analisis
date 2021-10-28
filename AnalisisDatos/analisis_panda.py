@@ -27,7 +27,17 @@ class analis_datos:
         print(arr.size)
         return nuevo
     def paises(self):
-        pass
+        dataPaises = self.df_filtrado.groupby("pais").mean()
+        #print(dataPaises)
+        dataPaises = dataPaises.reset_index()
+        dataPaises = dataPaises[["pais"]]
+        dataPaises = pd.DataFrame(dataPaises)
+        arr = dataPaises.to_numpy()
+        nuevo=[]
+        for x in range(arr.size):
+            if arr[x][0]!="":
+                nuevo.append(arr[x][0])
+        return  nuevo
 
 
         #return dataArtistas
@@ -181,3 +191,4 @@ class analis_datos:
 #analisis.Reproducciones2017_2021("artista","")
 #analisis.Reproducciones_por_artista20172021("Ricky Martin","co")a
 #analisis.artistas()
+#analisis.paises()
